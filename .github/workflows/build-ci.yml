@@ -50,3 +50,5 @@ jobs:
         run: |
           chmod +x deploy-to-instance.sh
           ./deploy-to-instance.sh
+        env:
+          INSTANCE_IP: ${{ vars.INSTANCE_IP }}
