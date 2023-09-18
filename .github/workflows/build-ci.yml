@@ -52,3 +52,4 @@ jobs:
           ./deploy-to-instance.sh
         env:
           INSTANCE_IP: ${{ vars.INSTANCE_IP }}
+          ASTRONAUT_TOKEN: ${{ secrets.ASTRONAUT_TOKEN }}
