@@ -13,4 +13,6 @@ chmod 700 ~/.ssh
 # we should probably avoid hardcoding this, in case
 # the IP changes
 rsync -av -e "ssh -o StrictHostKeyChecking=no" ./* ec2-user@$INSTANCE_IP:/var/acebook/
+echo "rsync finished"
 ssh -o StrictHostKeyChecking=no ec2-user@$INSTANCE_IP "sudo systemctl restart acebook"
+echo "reload finished"

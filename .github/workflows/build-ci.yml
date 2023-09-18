@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./scripts
+        working-directory: ./
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v3 
@@ -48,8 +48,8 @@ jobs:
         run: ls -R
       - name: Call a Bash Script
         run: |
-          chmod +x deploy-to-instance.sh
-          ./deploy-to-instance.sh
+          chmod +x scripts/deploy-to-instance.sh
+          ./scripts/deploy-to-instance.sh
         env:
           INSTANCE_IP: ${{ vars.INSTANCE_IP }}
           ASTRONAUT_TOKEN: ${{ secrets.ASTRONAUT_TOKEN }}
