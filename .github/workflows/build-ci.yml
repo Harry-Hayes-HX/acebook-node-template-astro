@@ -36,7 +36,7 @@ jobs:
 
   deploy:
     name: Deploy
-    # needs: build  # Ensure that the "build" job completes before deploying
+    needs: build  # Ensure that the "build" job completes before deploying
     runs-on: ubuntu-latest
     defaults:
       run:
