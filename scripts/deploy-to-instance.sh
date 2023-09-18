@@ -1,5 +1,6 @@
 sudo apt-get update -y
 sudo apt-get install -y openssh-client rsync
+echo "test"
 
 echo $INSTANCE_IP
 
