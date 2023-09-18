@@ -39,6 +39,8 @@ jobs:
     needs: build  # Ensure that the "build" job completes before deploying
     runs-on: ubuntu-latest
     steps:
+      - name: List Repository Contents
+        run: ls -R
       - name: Call a Bash Script
         run: |
           chmod +x ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh
