@@ -47,6 +47,5 @@ jobs:
       - name: List Repository Contents
         run: ls -R
       - name: Call a Bash Script
-        run: |
-          
+        run:
           ./deploy-to-instance.sh
