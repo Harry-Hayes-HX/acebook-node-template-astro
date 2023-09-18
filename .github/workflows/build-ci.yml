@@ -43,5 +43,5 @@ jobs:
         run: ls -R
       - name: Call a Bash Script
         run: |
-          chmod +x acebook-node-template-astro/scripts/deploy-to-instance.sh
+          chmod +x /acebook-node-template-astro/scripts/deploy-to-instance.sh
           bash ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh
