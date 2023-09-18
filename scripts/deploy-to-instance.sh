@@ -1,5 +1,5 @@
-apt-get update -y
-apt-get install -y openssh-client rsync
+sudo apt-get update -y
+sudo apt-get install -y openssh-client rsync
 
 eval $(ssh-agent -s)
 echo "$ASTRONAUT_TOKEN" | tr -d '\r' | ssh-add -
