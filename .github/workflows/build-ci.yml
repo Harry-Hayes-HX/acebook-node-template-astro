@@ -31,3 +31,11 @@ jobs:
         with:
           config-file: cypress.config.js
           start: npm run start:ci
+  runscript:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call a Bash Script
+        run:  bash ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh 
+
+        
