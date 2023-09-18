@@ -1,7 +1,9 @@
----
-name: Build CI
+name: Build CI and Deploy
 on:
-  - push
+  push:
+    branches:
+      - main  # Replace with the appropriate branch name
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,9 +17,9 @@ jobs:
       MONGODB_URL: mongodb://localhost:27017/acebook_test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2  # Use actions/checkout@v2 instead of v3
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2  # Use actions/setup-node@v2 instead of v3
         with:
           node-version: 18
       - name: Install dependencies
@@ -31,13 +33,13 @@ jobs:
         with:
           config-file: cypress.config.js
           start: npm run start:ci
-  runscript:
+
+  deploy:
     name: Deploy
+    needs: build  # Ensure that the "build" job completes before deploying
     runs-on: ubuntu-latest
     steps:
       - name: Call a Bash Script
         run: |
-          chmod +x /acebook-node-template-astro/scripts/deploy-to-instance.sh
-          bash ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh 
-
-        
+          chmod +x ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh
+          bash ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh
