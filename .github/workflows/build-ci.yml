@@ -38,10 +38,15 @@ jobs:
     name: Deploy
     # needs: build  # Ensure that the "build" job completes before deploying
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
     steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v3 
       - name: List Repository Contents
         run: ls -R
       - name: Call a Bash Script
         run: |
-          chmod +x /acebook-node-template-astro/scripts/deploy-to-instance.sh
-          bash ${GITHUB_WORKSPACE}/scripts/deploy-to-instance.sh
+          
+          ./deploy-to-instance.sh
