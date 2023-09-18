@@ -3,7 +3,7 @@ const Post = require('../models/post');
 const PostsController = {
   Index: async function(req, res) {
     const posts = await Post.find();
-    res.render('posts/home', { posts: posts });
+    res.render('posts/index', { posts: posts });
   },
   New: function(req, res) {
     res.render('posts/new', {});
