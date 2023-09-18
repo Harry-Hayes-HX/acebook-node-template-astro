@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Call a Bash Script
         run: |
-          chmod +x ../scripts/deploy-to-instance.sh
-          bash ../scripts/deploy-to-instance.sh 
+          chmod +x ./scripts/deploy-to-instance.sh
+          bash ./scripts/deploy-to-instance.sh 
 
         
