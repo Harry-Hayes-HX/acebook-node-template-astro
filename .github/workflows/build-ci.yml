@@ -52,10 +52,13 @@ jobs:
         uses: actions/checkout@v3 
       - name: List Repository Contents
         run: ls -R          
-      - name: configure aws credentials
+      - name: Call a Bash Script
         run: |
-            echo $AWS_CLI_TOKEN
-            echo $AWS_SECRET_TOKEN
+          chmod +x scripts/deploy-to-instance.sh
+          ./scripts/deploy-to-instance.sh
+    #   - name: configure aws credentials
+        # run: |
+            
         # uses: aws-actions/configure-aws-credentials@v1
         # with:
         #   aws-access-key-id: $AWS_CLI_TOKEN
@@ -71,10 +74,7 @@ jobs:
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
-      - name: Call a Bash Script
-        run: |
-          chmod +x scripts/deploy-to-instance.sh
-          ./scripts/deploy-to-instance.sh
+      
       - name: revoke runner ip address
         run: |
           aws ec2 revoke-security-group-ingress \
