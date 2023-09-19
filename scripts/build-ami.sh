@@ -48,6 +48,7 @@ sleep 10
 ssh  -o StrictHostKeyChecking=accept-new \
     -i ./keypair ec2-user@$INSTANCE_IP \
     "sudo chown ec2-user /var/acebook"
+rsync -av -e "ssh -o StrictHostKeyChecking=no" ./* ec2-user@$INSTANCE_IP:/var/acebook/
 
 echo " -> copying files"  
 scp -o StrictHostKeyChecking=accept-new \
