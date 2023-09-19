@@ -70,8 +70,8 @@ jobs:
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
       - name: Call a Bash Script
         run: |
-          chmod +x scripts/deploy-to-instance.sh
-          ./scripts/deploy-to-instance.sh
+          chmod +x scripts/build-ami.sh
+          ./scripts/build-ami.sh
       - name: Revoke runner IP address
         run: |
           aws ec2 revoke-security-group-ingress \
