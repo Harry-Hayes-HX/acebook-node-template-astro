@@ -9,7 +9,7 @@
     "start": "nodemon ./bin/www",
     "start:test": "PORT=27017 MONGODB_URL='mongodb://172.31.18.158/acebook_test' npm start",
     "start:ci": "PORT=3030 npm start",
-    "start:production": "PORT=3000 node ./bin/www",
+    "start:production": "MONGODB_URL='mongodb://172.31.18.158/acebook PORT=27017 node ./bin/www",
     "test": "npm run test:unit && npm run test:integration && npm run lint",
     "test:unit": "jest",
     "test:integration": "cypress run"
