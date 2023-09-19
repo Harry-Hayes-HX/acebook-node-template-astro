@@ -40,6 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       INSTANCE_IP: ${{ vars.INSTANCE_IP }}
+      INSTANCE_IP_TWO: ${{ vars.INSTANCE_IP_TWO }}
       ASTRONAUT_TOKEN: ${{ secrets.ASTRONAUT_TOKEN }}
       AWS_CLI_TOKEN: ${{ secrets.CI_AWS_ACCESS_TOKEN }}
       AWS_SECRET_TOKEN: ${{ secrets.CI_AWS_SECRET_TOKEN }}
