@@ -17,9 +17,9 @@ jobs:
       MONGODB_URL: mongodb://localhost:27017/acebook_test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Use actions/checkout@v2 instead of v3
+        uses: actions/checkout@v2
       - name: Set up Node.js
-        uses: actions/setup-node@v2  # Use actions/setup-node@v2 instead of v3
+        uses: actions/setup-node@v2
         with:
           node-version: 18
       - name: Install dependencies
@@ -36,10 +36,10 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: build  # Ensure that the "build" job completes before deploying
+    needs: build
     runs-on: ubuntu-latest
     env:
-      INSTANCE_IP: ${{ vars.INSTANCE_IP }}
+      INSTANCE_IP: ${{ secrets.INSTANCE_IP }}
       ASTRONAUT_TOKEN: ${{ secrets.ASTRONAUT_TOKEN }}
       AWS_CLI_TOKEN: ${{ secrets.CI_AWS_ACCESS_TOKEN }}
       AWS_SECRET_TOKEN: ${{ secrets.CI_AWS_SECRET_TOKEN }}
@@ -49,32 +49,29 @@ jobs:
         working-directory: ./
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v3
       - name: List Repository Contents
-        run: ls -R          
-      
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: $AWS_CLI_TOKEN
-          aws-secret-access-key: $AWS_SECRET_TOKEN
-          aws-region: eu-west-2
-      - name: get runner ip address
+        run: ls -R
+      - name: Configure AWS credentials
+        run: |
+          aws configure set aws_access_key_id $AWS_CLI_TOKEN
+          aws configure set aws_secret_access_key $AWS_SECRET_TOKEN
+          aws configure set region eu-west-2
+      - name: Get runner IP address
         id: ip
         uses: haythem/public-ip@v1.2
-      - name: whitelist runner ip address
+      - name: Whitelist runner IP address
         run: |
           aws ec2 authorize-security-group-ingress \
             --group-id $AWS_INSTANCE_SG_ID \
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
-      
       - name: Call a Bash Script
         run: |
           chmod +x scripts/deploy-to-instance.sh
           ./scripts/deploy-to-instance.sh
-      - name: revoke runner ip address
+      - name: Revoke runner IP address
         run: |
           aws ec2 revoke-security-group-ingress \
             --group-id $AWS_INSTANCE_SG_ID \
