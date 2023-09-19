@@ -53,11 +53,16 @@ jobs:
       - name: List Repository Contents
         run: ls -R          
       - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: $AWS_CLI_TOKEN
-          aws-secret-access-key: $AWS_SECRET_TOKEN
-          aws-region: eu-west-2
+        run: |
+            mkdir -p ~/.aws
+            echo "[default]" >> ~/.aws/credentials
+            echo "aws_access_key_id=$AWS_CLI_TOKEN" >> ~/.aws/credentials
+            echo "aws_secret_access_key=$AWS_SECRET_TOKEN" >> ~/.aws/credentials
+        # uses: aws-actions/configure-aws-credentials@v1
+        # with:
+        #   aws-access-key-id: $AWS_CLI_TOKEN
+        #   aws-secret-access-key: $AWS_SECRET_TOKEN
+        #   aws-region: eu-west-2
       - name: get runner ip address
         id: ip
         uses: haythem/public-ip@v1.2
