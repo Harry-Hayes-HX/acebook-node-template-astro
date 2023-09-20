@@ -36,7 +36,7 @@ jobs:
 
   deploy:
     name: Deploy
-    # needs: build
+    needs: build
     runs-on: ubuntu-latest
     env:
       INSTANCE_IP: ${{ vars.INSTANCE_IP }}
@@ -44,8 +44,6 @@ jobs:
       ASTRONAUT_TOKEN: ${{ secrets.ASTRONAUT_TOKEN }}
       AWS_CLI_TOKEN: ${{ secrets.CI_AWS_ACCESS_TOKEN }}
       AWS_SECRET_TOKEN: ${{ secrets.CI_AWS_SECRET_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_INSTANCE_SG_ID: sg-0cb5b1f5db0369db3
     defaults:
       run:
@@ -72,8 +70,8 @@ jobs:
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
       - name: Call a Bash Script
         run: |
-          chmod +x scripts/build-ami.sh
-          ./scripts/build-ami.sh
+          chmod +x scripts/deploy-to-instance.sh
+          ./scripts/deploy-to-instance.sh
       - name: Revoke runner IP address
         run: |
           aws ec2 revoke-security-group-ingress \
